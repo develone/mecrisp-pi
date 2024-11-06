@@ -1,0 +1,7 @@
+This is a modification of
+mecrisp-ice-2.6d/skeletalstructure
+
+Modified compile to work with the ice40UP5K on the pico-ice.
+Installed the correct icestorm/j1a.pcf
+Renamed the icestorm directory to pico-ice. 
+Added a README. 

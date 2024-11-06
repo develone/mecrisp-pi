@@ -1,0 +1,24 @@
+This is a basic mecrisp-ice for the pico-ice.
+in the
+mecrisp root directory first retype the first few lines of the
+./compile file.   That will compile the pascal emulator for your platform.
+
+Then in the mecrisp***/pico-ice directory
+./compile
+
+To flash the gateware try:
+dfu-util -a 0 -D j1a.bin
+
+or for older installations
+dfu-util -a 1 -D j1a.bin
+
+To talk to the fpga, first you have to find the usb devices.  On Mac
+OS X I did
+
+ls /dev | grep usb
+
+To get proper cr behavior try:
+picocom --imap crcrlf,lfcrlf /dev/tty.usbmodem1103
+
+If you have any problems, please send me an email.
+lozinski@PythonLinks.info

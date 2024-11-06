@@ -1,0 +1,4 @@
+set_io TXD 25
+set_io RXD 27
+set_io oscillator 35
+set_io reset_button 10

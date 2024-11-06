@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f build/*
+
+rm j1a.bin
