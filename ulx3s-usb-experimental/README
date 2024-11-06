@@ -1,0 +1,283 @@
+
+Mecrisp-Ice for Radiona ULX3S board with 85F ECP5 FPGA
+
+-------------------------------------------------------------------------------
+  IO Registers
+-------------------------------------------------------------------------------
+
+            Bit READ            WRITE
+
+    + ...0                      Write as usual
+    + ...1                      _C_lear bits
+    + ...2                      _S_et bits
+    + ...3                      _T_oggle bits
+
+      0004  2   IN                          Input
+      0008  3   OUT             OUT (cst)   Output
+      0010  4   DIR             DIR (cst)   Direction
+      0020  5   IFG             IFG (cst)   Interrupt Flag
+      0040  6   IES             IES (cst)   Interrupt Edge Select
+      0080  7   IE              IE  (cst)   Interrupt Enable
+
+      0100  8   --- PORT 1 --->  Positive pins  0-13
+      0200  9   --- PORT 2 --->  Negative pins  0-13
+      0400  10  --- PORT 3 --->  Negative pins 14-27
+      0800  11  --- PORT 4 --->  Positive pins 14-27
+
+      Combine GPIO address bits freely !
+      For example, you can write all outputs at once by writing to $0F08.
+
+      Traditional registers:
+
+      1000      UART RX         UART TX
+      2000      UART Status
+
+      1010      USB-UART RX     USB-UART TX
+      1020      USB-UART Status
+
+      2010      LEDs            LEDs (cst)
+      2020      Buttons
+      2030      ADC in
+      2040      ADC out         ADC out (cst)
+      2050      SD in
+      2060      SD out          SD out (cst)
+      2070      Analog out      Analog out (cst)
+      2080      OLED in
+      2090      OLED out        OLED out (cst)
+      20A0      OLED dir        OLED dir (cst)
+
+      20F0      SPI Flash in    SPI Flash out
+
+      4000      Ticks           Set Ticks
+      8004      IRQ Cause       IRQ Cause  (cst)  Especially useful +1: Clear pending sticky IRQs
+      8008      IRQ Enable      IRQ Enable (cst)
+
+-------------------------------------------------------------------------------
+
+  My dream GPIO implementation:
+
+  Register set similar to MSP430 GPIOs
+
+  Atomic access to all bits by using
+           "Write, Clear, Set, Toggle" capability just like in PIC32MX.
+  Just add  0      1      2    3 to the address used for io!
+
+  GPIO Ports are "one hot" decoded, so mixing of bits is possible.
+
+  Examples:
+
+     0 $0FF8 io!  Reset all pins to inputs and clear all interrupts
+
+    64 $0382 io!  (Port 1 | Port 2) OUT Set --> Set bit 6 in P1OUT and P2OUT
+
+     1 $0821 io!  P4IFG Clear --> Clear pending interrupt for pin P4.0
+
+-------------------------------------------------------------------------------
+
+   LEDs:     $0001   Red
+   $2010     $0002   Orange
+             $0004   Green
+             $0008   Blue
+             $0010   Red
+             $0020   Orange
+             $0040   Green
+             $0080   Blue
+
+   Buttons:  $0001   Fire 1
+   $2020     $0002   Fire 2
+             $0004   Up
+             $0008   Down
+             $0010   Left
+             $0020   Right
+
+    PWR button is hardwired for Reset.
+
+    There are 14 pins on each of the port pin rows, two bits are spare.
+
+    You can read all buttons using the buttons register $2020,
+    but to give you interrupt capabilites on button events,
+    they are also wired into the spare GPIO port input registers:
+
+    P1.14 Fire 1
+    P1.15 Fire 2
+
+    P2.14 Up
+    P2.15 Down
+
+    P3.14 Left
+    P3.15 Right
+
+-------------------------------------------------------------------------------
+
+Interrupt mapping:
+
+  Bit  Source as in interrupt cause   Interrupt enable
+       register $8002                 register $8004 default
+
+
+   0   Port 1                         X
+   1   Port 2                         X
+   2   Port 3                         X
+   3   Port 4                         X
+   4   Timer overflow (volatile)      X
+   5                                  X
+   6                                  X
+   7                                  X
+
+   8   Timer overflow (sticky)        -
+   9                                  -
+  10                                  -
+  11                                  -
+  12                                  -
+  13                                  -
+  14                                  -
+  15                                  -
+
+  Sticky interrupts keep set until you manually reset them,
+  volatile interrupts are active as long as the peripheral holds them.
+
+  In case of the volatile timer overflow interrupt, this is active for one clock cycle only.
+  The GPIO ports have their own interrupt logic, therefore, they are handled as volatile interrupts.
+
+  Any combination of enabled interrupt sources raises the interrupt request line.
+
+
+  The processor handles interrupts after EINT by calling address $0002.
+
+  For default, there is a return opcode $608C.
+
+  You need to place a jump to your interrupt handler there:
+
+  ' interrupt 1 rshift $3FFE ! \ Generate JMP opcode for vector location
+
+  Tools:
+
+    eint  ( -- )   Global interrupt enable
+    dint  ( -- )   Global interrupt disable
+    eint? ( -- ? ) Are interrupts enabled ?
+
+  See examples/interrupts.fs and examples/pin-irq.fs
+
+-------------------------------------------------------------------------------
+
+  Tick counter in $4000 counts CPU cycles and generates interrupts on overflow.
+  You can set the counter to any value by writing the register.
+
+  For precise time keeping, here is a little helper:
+
+  : nextirq ( cycles -- ) \ Trigger the next interrupt u cycles after the last one.
+    ticks  \ Read current tick
+    -       \ Subtract the cycles already elapsed
+    4 -      \ Correction for the cycles neccessary to do this
+    negate    \ Timer counts up to zero to trigger the interrupt
+    $4000 io!  \ Prepare timer for the next irq
+  ;
+
+-------------------------------------------------------------------------------
+
+  You can save the complete current memory contents into the SPI flash.
+  Sectors 0 to 29 contain the FPGA bitstream, sector 30 will be
+  loaded automatically on startup if you save a memory image into this.
+
+  sector# load
+  sector# save
+  sector# erase
+
+  There is a variable "init" which is executed after loading an image.
+
+  So if you wish to create a turnkey application, prepare everything in RAM
+  and type:
+
+    ' fireworks init !
+    30 save
+
+  Replace fireworks with whatever you wish to be executed on startup.
+  Nothing is executed if init contains a zero, which is the default.
+
+  If you are not sure if it will work properly, save to any other sector
+  and load manually. The init mechanism works the same on all sectors.
+
+  The automatic loading of sector 30 is bypassed if any button is pressed
+  during Reset. This allows you to boot and type "30 erase" if something
+  went wrong.
+
+-------------------------------------------------------------------------------
+
+Tools necessary to run Mecrisp-Ice on your ULX3S board:
+
+https://github.com/f32c/tools
+
+cd ujprog
+cp Makefile.linux Makefile
+make
+make install
+
+Check if connection is fine:
+
+ujprog -r
+
+ULX2S / ULX3S JTAG programmer v 3.0.92 (built Apr  5 2020 01:08:14)
+Using USB cable: ULX3S FPGA 12K v3.0.3
+
+Load Mecrisp-Ice into RAM of FPGA:
+
+ujprog j1a.bit
+
+Install Mecrisp-Ice into external flag on ULX3S board:
+
+ujprog -j FLASH j1a.bit
+
+Erasing flash memory chip takes a while, ujprog spins on 0% for a while. Just wait.
+
+Open communication with ./terminal which depends on picocom and minicom being installed.
+
+-------------------------------------------------------------------------------
+
+Tools necessary to compile Mecrisp-Ice for ECP5:
+
+* Freepascal
+* GForth
+
+Packaged versions on Debian 10 are fine.
+
+-------------------------------
+* Yosys
+-------------------------------
+
+https://github.com/YosysHQ/yosys
+
+make
+make install
+
+-------------------------------
+* Project Trellis:
+-------------------------------
+
+https://github.com/SymbiFlow/prjtrellis
+
+This one needs to be cloned directly using git:
+
+git clone --recursive https://github.com/SymbiFlow/prjtrellis
+
+cd libtrellis
+cmake -DCMAKE_INSTALL_PREFIX=/usr .
+make
+make install
+
+-------------------------------
+* NextPNR:
+-------------------------------
+
+https://github.com/YosysHQ/nextpnr
+
+cmake -DARCH=ecp5 -DTRELLIS_INSTALL_PREFIX=/usr .
+make -j$(nproc)
+make install
+
+
+Watch out:
+
+Yosys, Trellis and NextPNR have a lot of build dependencies.
+
+They will notify you on missing libraries.
+

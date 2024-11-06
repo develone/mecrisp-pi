@@ -1,0 +1,24 @@
+
+\ -----------------------------------------------------------------------------
+\  Terminal IO
+\ -----------------------------------------------------------------------------
+
+: u-connected? ( -- ? ) $1020 io@ 4 and 0<> ; \ Host presence detect
+
+: u-emit? ( -- ? ) $1020 io@ 1 and 0<> ;
+: u-key?  ( -- ? ) $1020 io@ 2 and 0<> ;
+: u-emit  ( c -- ) begin u-emit? until $1010 io! ;
+: u-key   ( -- c ) begin u-key?  until $1010 io@ ;
+
+\ -----------------------------------------------------------------------------
+\  A few tests
+\ -----------------------------------------------------------------------------
+
+\ Echo characters
+: echo ( -- ) begin u-key? if u-key u-emit then key? until ;
+
+\ Print incoming characters to default terminal
+: print begin u-key? if u-key emit then key? until ;
+
+\ Send printable ASCII characters as fast as possible
+: sendascii ( -- ) 32 begin 1+ dup 127 = if drop 32 then dup u-emit key? until drop ;

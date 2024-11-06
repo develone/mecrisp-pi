@@ -1,0 +1,5 @@
+#!/bin/bash
+
+tinyprog --pyserial -c /dev/ttyACM0 --program j1a.bin
+
+echo "Finished."

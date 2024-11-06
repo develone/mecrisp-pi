@@ -1,0 +1,15 @@
+#!/bin/bash
+
+./compilenucleus
+
+echo "Synthesize design..."
+icepll -i 16 -o 48 -f icestorm/pll.v -m
+yosys  -p "synth_ice40 -top top -json build/j1a.json" -q icestorm/j1a.v icestorm/pll.v
+
+echo "Place and Route..."
+nextpnr-ice40 --lp8k --package cm81 --json build/j1a.json --asc build/j1a.txt --freq 24 --ignore-loops --pcf-allow-unconstrained --pcf icestorm/j1a.pcf
+
+echo "Create Bitstream..."
+icepack -s build/j1a.txt j1a.bin
+
+echo "Finished."

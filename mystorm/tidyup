@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd hx8k
+
+  ./tidyup
+
+cd ../stm32l476-ra
+
+  make clean
+
+cd ..

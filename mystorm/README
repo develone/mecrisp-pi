@@ -1,0 +1,190 @@
+
+--- HIC SUNT DRACONES --- HERE BE DRAGONS ---
+
+A very early, highly experimental Forthification for the Mystorm / Blackice FPGA board
+
+Licence: GPL3 for Mecrisp-Stellaris, BSD for Mecrisp-Ice.
+
+stm32loader.py, included here for convenience only, is a separate project taken from https://github.com/jsnyder/stm32loader which is licenced under GPL3.
+
+Connect serial terminal to the 40 Pin header, select correct BOOT polarity, press Reset and flash the included binary, just as described in the tutorial.
+
+./stm32loader.py -e -w -v -p /dev/ttyACM0 mecrisp-stellaris-stm32l476.bin
+
+Switch BOOT to run mode, open serial communication over the same wires at 115200 Baud 8N1 and press reset button on the board.
+
+Another and much faster was is to flash with dfu-util:
+
+dfu-util -a 0 -d 0483:df11 -s 0x8000000 -D mecrisp-stellaris-stm32l476.bin
+
+I use Picocom with this setting:
+
+picocom -b 115200 /dev/ttyACM0 --imap lfcrlf,crcrlf --omap delbs,crlf --send-cmd "ascii-xfr -s -l 50 -n"
+
+This should give you a welcome message:
+
+Mecrisp-Stellaris RA 2.3.6 for STM32L476 with Mecrisp-Ice bitstream inside by Matthias Koch
+
+Now you can use Forth in the host microcontroller.
+
+
+Useful connections to the outside world - (brackets) denote internal signals you should not connect to:
+
+              1  2  +5V
+              3  4  +5V
+              5  6  GND
+      BOOT    7  8  RX on the ARM, connect your terminal here
+              9 10  TX on the ARM, connect your terminal here
+ (J1 /Reset) 11 12
+ ARM /Reset  13 14
+ (25MHz)     15 16
+             17 18  (TX towards FPGA, internal bridge)
+ (RX bridge) 19 20
+             21 22
+             23 24
+             25 26
+             27 28
+             29 30
+             31 32
+             33 34
+             35 36
+             37 38
+      GND    39 40
+
+
+
+The bitstream inside contains Mecrisp-Ice. You can load the "iceboot.txt" Forth source and then type "boot" to send the bitstream to the FPGA.
+
+A terminal bridge via UART4 to PA0/PA1 = RD0/RD1 is available by typing "terminal". You can quit it by pressing Ctrl+C. The J1 will be reset if you press Ctrl+D.
+
+All this can be done at once by just typing "ice".
+
+If you wish to have Mecrisp-Ice loaded on each power up, you can use the following:
+
+compiletoflash
+-- Load iceboot.txt source here --
+: init ( -- ) ice ;
+reset
+
+
+Wirings and Pins between STM32L476 and FPGA:
+
+RSEL is used for Reset
+RDIR carries 25 MHz clock when the bitstream is up and running, just for measurement purposes
+RD0 and RD1 are occupied by the terminal bridge into the FPGA
+
+Registers inside of Mecrisp-Ice:
+
+Port A contains PMOD 1,  2,  3,  4
+Port B contains PMOD 5,  6,  7,  8
+Port C contains PMOD 9, 10, 11, 13.
+
+Led pins, PMOD 12, are configured to be output only and are handled separately in misc.out register.
+
+Notes on the current IO register assignment:
+
+     Addr  Bit READ            WRITE
+
+     0001  0   Port A IN
+     0002  1   Port A OUT      Port A OUT
+     0004  2   Port A DIR      Port A DIR
+     0008  3   misc.out        misc.out
+
+     0010  4   Port B IN
+     0020  5   Port B OUT      Port B OUT
+     0040  6   Port B DIR      Port B DIR
+     0080  7   SRAM read       SRAM write
+
+     0100  8   Port C IN
+     0200  9   Port C OUT      Port C OUT
+     0400  10  Port C DIR      Port C DIR
+     0800  11  SRAM addr low   SRAM addr low
+
+     1000  12  UART RX         UART TX
+     2000  13  misc.in
+     4000  14  ticks           set ticks
+     8000  15  SRAM addr high  SRAM addr high
+
+Contents of misc.out and misc.in:
+
+   Bitmask Bit  misc.out        misc.in
+
+     0001    0  Red LED 1       UART Ready to Transmit
+     0002    1  Yellow LED 2    UART Character received
+     0004    2  Green LED 3     Random
+     0008    3  Blue LED 4
+     0010    4
+     0020    5
+     0040    6
+     0080    7
+     0100    8
+     0200    9
+     0400   10
+
+No permanent storage is currently available for this port of Mecrisp-Ice.
+
+SRAM is wired into three IO ports:
+
+$0080 SRAM read/write
+$0800 SRAM address low
+$8000 SRAM address high.
+
+To check if everything is fine, you can use this SRAM checker:
+
+\ SRAM checker
+
+: ramtest-addr16 ( -- )
+  cr cr
+  ." High memory address: " $8000 io@ .x cr
+
+  ." Data Bus" cr
+
+  $FFFF 0 do
+    i $800 io!  \ Set low memory address
+
+    16 0 do     \ Try all 16 data lines
+      1 i lshift $80 io! \ Write to SRAM and read value back.
+                 $80 io@ 1 i lshift <> if ." Data error: " j .x ." : " 1 i lshift .x $80 io@ .x
+                                                                       1 i lshift $80 io@ xor .x cr then
+    loop
+
+  loop
+
+  ." Fill with own address" cr
+
+  $FFFF 0 do  \ Fill each location with its own address
+    i $800 io!  \ Set low memory address
+    i $80  io!  \ Set content to address
+  loop
+
+  ." Address bus" cr
+
+  $16 0 do  \ Does it read back correctly ?
+    1 i lshift $800 io!  \ Set low memory address
+      $80  io@ 1 i lshift <> if ." Addr error: " 1 i lshift .x $80 io@ .x
+                                                 1 i lshift $80 io@ xor .x cr then
+  loop
+
+\  ." Read back location" cr
+\
+\  $FFFF 0 do  \ Does it read back correctly ?
+\    i $800 io!  \ Set low memory address
+\      $80  io@ i <> if ." Location error: " i .x $80 io@ .x
+\                                            i $80 io@ xor .x cr then
+\  loop
+;
+
+: ramtest ( -- )
+  0 $8000 io! ramtest-addr16
+  1 $8000 io! ramtest-addr16
+  2 $8000 io! ramtest-addr16
+  3 $8000 io! ramtest-addr16
+  4 $8000 io! ramtest-addr16
+  5 $8000 io! ramtest-addr16
+  6 $8000 io! ramtest-addr16
+  7 $8000 io! ramtest-addr16
+;
+
+Matthias Koch, October 2016, updated July 2017
+
+--- HIC SUNT DRACONES --- HERE BE DRAGONS ---

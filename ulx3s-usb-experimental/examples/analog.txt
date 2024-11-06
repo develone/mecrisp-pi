@@ -1,0 +1,61 @@
+
+\ On how to use the MAX11125 Analog-Digital-Converter
+
+\ This is experimental work in progress.
+\ The converter should give 12 bits, but we get 10 bits of resolution only in a different binary format.
+
+$2030      constant adc-in
+$2040      constant adc-out
+$2040 $1 + constant adc-out-clr
+$2040 $2 + constant adc-out-set
+$2040 $3 + constant adc-out-xor
+
+: sdo-high ( -- ) 1 adc-out-set io! ;
+: sdo-low  ( -- ) 1 adc-out-clr io! ;
+: sck-high ( -- ) 2 adc-out-set io! ;
+: sck-low  ( -- ) 2 adc-out-clr io! ;
+: cnv-high ( -- ) 4 adc-out-set io! ;
+: cnv-low  ( -- ) 4 adc-out-clr io! ;
+
+: adc ( -- data )
+
+  0 15  lshift     \ Bit 15  Set to 0 to select the ADC Mode Control register
+
+  0 14  lshift or  \ Bit 14  Scan control register:
+  0 13  lshift or  \ Bit 13  0001
+  0 12  lshift or  \ Bit 12  for
+  1 11  lshift or  \ Bit 11  manual mode.
+
+  0 10  lshift or  \ Bit 10  CHSEL3
+  0  9  lshift or  \ Bit  9  CHSEL2
+  0  8  lshift or  \ Bit  8  CHSEL1
+  1  7  lshift or  \ Bit  7  CHSEL0
+
+  1  6  lshift or  \ Bit  6  Reset all registers
+  0  5  lshift or  \ Bit  5    to default values
+
+  0  4  lshift or  \ Bit  4  Power Management:
+  0  3  lshift or  \ Bit  3    Normal mode.
+
+  1  2  lshift or  \ Bit  2  Channel ID
+
+  0  1  lshift or  \ Bit  1  SWCNV, not used in external clock mode
+
+  0  0  lshift or  \ Bit  0  Unused
+
+  cnv-low
+
+  16 0 do
+    \ sck-low
+    \ dup 0< if sdo-high else sdo-low then
+
+    dup 15 rshift adc-out io! \ CS low, SCK low, just the data bit
+
+    sck-high \ ADC exchanges data on rising edge
+    2* adc-in io@ or
+  loop
+
+  cnv-high
+;
+
+: adcs ( -- ) sck-high cnv-high begin adc dup .x 5 rshift $3FF and . cr key? until ;

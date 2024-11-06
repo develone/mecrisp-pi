@@ -1,0 +1,64 @@
+
+A small introduction to IO capabilities for Icebreaker
+
+-------------------------------------------------------------------------------
+
+Three ports of 8 wires each, with interrupts in MSP430 style.
+
+Each port has six registers
+
+  $0001  PxIN    Input
+  $0002  PxOUT   Output
+  $0004  PxDIR   Direction
+
+  $0010  PxIFG   Interrupt Flag
+  $0020  PxIES   Interrupt Edge Select
+  $0040  PxIE    Interrupt Enable
+
+OR these together with the desired port.
+
+  $0100 for Port A
+  $0200 for Port B
+  $0400 for Port C
+
+You can combine the bits freely.
+
+  Writes go to all registers which bit combination is valid.
+  Reads of multiple registers at once are ORed together.
+
+For example, to set all outputs at once, write to $0702.
+
+Check if any of the inputs at Port A and Port C are high ? Read $0501.
+
+-------------------------------------------------------------------------------
+
+$4000 is a tick counter, which can be read and written to any value desired.
+
+It generates an interrupt upon overflow from $FFFF -> $0000.
+
+-------------------------------------------------------------------------------
+
+$8001 is the interrupt cause register:
+
+  - The low  8 bits are "sticky" interrupts which need to be cleared by writing 1 to it.
+  - The high 8 bits are "volatile" interrupts which are set and cleared by their peripheral modules.
+
+$8002 is the interrupt enable register. Reset value: $FF00
+
+Bits set both in $8001 and $8002 trigger interrupts.
+
+Current list of interrupts:
+
+  $0001  Ticks (sticky)
+
+  $0100  Port A
+  $0200  Port B
+  $0400  Port C
+  $0800  Ticks (volatile)
+
+Tick interrupt is available in two flavours, because volatile ticks interrupt is active for one clock cycle only.
+
+If you want to use the tick interrupt only, everything is fine, but if you use other interrupts, too,
+the one-cycle-active ticks interrupt will get lost when the interrupt handler is already running.
+
+-------------------------------------------------------------------------------

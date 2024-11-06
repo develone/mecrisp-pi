@@ -1,0 +1,37 @@
+
+$0010 constant data
+$0020 constant flags
+$0100 constant timebase
+$0200 constant charging
+
+: stop   ( -- ) $8000 flags bis! ;
+: start  ( -- ) $8000 flags bic! ;
+
+: bright ( -- ) flags io@ $0F00 and        flags io! ;
+: dark   ( -- ) flags io@ $0F00 and $10 or flags io! ;
+
+: red    ( -- ) flags io@ $00F0 and $0100 or flags io! ;
+: yellow ( -- ) flags io@ $00F0 and $0200 or flags io! ;
+: orange ( -- ) flags io@ $00F0 and $0300 or flags io! ;
+
+: l-emit? ( -- ? ) pause flags io@ 1 and 0<> ;
+: l-key?  ( -- ? ) pause flags io@ 2 and 0<> ;
+: l-link? ( -- ? ) pause flags io@ 4 and 0<> ;
+
+: l-emit  ( c -- ) begin l-emit? until data io! ;
+: l-key   ( c -- ) begin l-key?  until data io@ ;
+
+: esc? ( -- ? ) key? if key 27 = else false then ;
+
+: ledcomm ( -- )
+
+  flags io@ $8000 and    if bright orange then \ Still in Reset ?
+  flags io@ $0F00 and 0= if        orange then \ No wavelength selected ?
+
+  begin
+    l-link? l-key? emit? and and if l-key emit then
+    l-link? key? l-emit? and and if key l-emit then
+
+    l-link? not if esc? else false then
+  until
+;

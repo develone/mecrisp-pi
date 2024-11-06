@@ -1,0 +1,20 @@
+
+Mecrisp-Ice for the Fomu PVT.
+
+https://tomu.im/fomu.html
+
+This target contains an USB-CDC implementation by ulixxe published under MIT license:
+
+https://github.com/ulixxe/usb_cdc
+
+To flash the bitstream:
+
+dfu-util -e  -D j1a.dfu
+
+To restart the bitstream already in FOMU:
+
+dfu-util -e -d 1209:5bf0
+
+Finally, open your favourite terminal on /dev/ttyACM0:
+
+picocom -b 115200 /dev/ttyACM0 --imap lfcrlf,crcrlf --omap delbs,crlf --send-cmd "cat"

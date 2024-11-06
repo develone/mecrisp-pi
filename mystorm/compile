@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd hx8k
+
+  ./compile
+  ./tidyup
+
+cd ../stm32l476-ra
+
+  make clean all && ls -l *.bin && md5sum *.bin && cp *.bin .. && make clean
+
+cd ..
+
+  arm-none-eabi-objcopy --change-addresses 0x08000000 -I binary -O ihex mecrisp-stellaris-stm32l476.bin mecrisp-stellaris-stm32l476.hex

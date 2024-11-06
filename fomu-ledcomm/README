@@ -1,0 +1,55 @@
+
+Mecrisp-Ice for the Fomu PVT.
+
+https://tomu.im/fomu.html
+
+This target contains an USB-CDC implementation by ulixxe published under MIT license:
+
+https://github.com/ulixxe/usb_cdc
+
+To flash the bitstream:
+
+dfu-util -e  -D j1a.dfu
+
+To restart the bitstream already in FOMU:
+
+dfu-util -e -d 1209:5bf0
+
+Finally, open your favourite terminal on /dev/ttyACM0:
+
+picocom -b 115200 /dev/ttyACM0 --imap lfcrlf,crcrlf --omap delbs,crlf --send-cmd "cat"
+
+
+-------------------------------------------------------------------------------
+  This is a special port that uses the Fomu as a Ledcomm modem.
+-------------------------------------------------------------------------------
+
+To recreate, you need to solder one red LED and one yellow LED,
+both of the clear, high-brightness type, to the four exposed pins:
+
+pmod_1: Anode   yellow
+pmod_2: Cathode yellow
+pmod_3: Cathode red
+pmod_4: Anode   red
+
+It will relay communication if you simply type "ledcomm". Pressing ESC when there is no link to exit.
+
+Default is both LEDs in use, bright mode.
+With this "dual wavelength", connection is possible with any link color between red and yellow.
+You can change the mode before typing "ledcomm" by using these modifiers:
+
+bright
+dark
+
+red
+yellow
+orange
+
+The timebase is 244 us for default, which is really slow,
+but compatible with software implementations of the protocol in microcontrollers.
+
+Between FPGAs, a timebase of 30 us is reasonable. To change, multiply with 12 as the logic runs at 12 MHz, and type
+
+30 12 * timebase io!
+
+before entering "ledcomm".
