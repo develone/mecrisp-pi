@@ -1,6 +1,6 @@
 # LICENSE
 
-The Hana 1 processor is a variant of Mecrisp Ice 2.6d, which is a
+The Mecrisp PI processor is a basically a Mecrisp Ice 2.6d, which is a
 variant of swapforth.  (Mecrisp Ice 2.6e does not have a license.)
 Both SwapForth and Mecrisp Ice 2.6d are based on the FreeBSD 3 clause
 license.  So the underlying Verilog is only subject to the FreeBSD
