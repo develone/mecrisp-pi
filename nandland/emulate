@@ -1,7 +1,0 @@
-#!/bin/bash
-
-./compilenucleus
-
-echo "Start Ice Cream Machine... Press ESC to exit."
-../common-crosscompiler/icecreammachine-8kb build/iceimage.hex
-

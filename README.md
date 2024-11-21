@@ -1,12 +1,25 @@
-Welcome to Mecrisp-ice. This is a family of 16, 32 and 64 bit forth
-processors based on the J1 stack machine. It supports the following
-boards.
+Mecrisp-Pi
 
-blackice2 hx8k-32bit tinyfpga-bx
-fomu icebreaker ulx3s
-fomu-ledcomm mch2022 ulx3s-usb-experimental
-hx1k mystorm
-hx8k nandland
+<font color="red">Not Yet Released.  This contains a synthesizing
+Pico-Ice Mecrisp Ice processor.  Any software on the RP2040 can talk to it
+over Uart.  I am working to add the ability to send messages from the ICE40
+to MicroPython running on the RP2040. 
+
+</font>
+<br>
+
+Mecrisp Pi is an FPGA co-processor for the RP2040 and RP2350 chips
+running on the
+[Pico-Ice](https://tinyvision.ai/products/pico-ice-fpga-trainer-board)
+and (soon) [Pico2-Ice](https://discord.gg/4X6caMbHCD) circuit boards.
+Mecrisp Pi provides the firmware and verilog to connect the two chips.
+The ICE40UP5k FPGA can be used to accelerate parallel processes, and
+provides another 32 GPIO ports.  The [Mecrisp Ice
+Interpreter](https://mecrisp-ice.readthedocs.io/en/latest/api.html)
+makes it much easier to debug your hardware designs.  The RP2350
+provides DVI output.  4 PMODS ports are available for additional
+functionality. For example, a Diligent I2S2 PMOD can provide stereo
+audio I/O.
 
 This repository includes:
 
@@ -32,5 +45,10 @@ This repository includes:
 
     A wordlist (will soon be) in ./documentation/glossary.txt
 
+This repository does not yet include the firmware and gateware for sending
+data from the FPGA to the RP chip. 
+
 If you have any questions, please post them on our discussion board.
 https://sourceforge.net/p/mecrisp/discussion/general/
+
+Or [join the Hana-1 Discord server](https://discord.gg/DY2HZG5g)

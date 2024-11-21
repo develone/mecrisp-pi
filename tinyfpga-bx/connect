@@ -1,5 +1,0 @@
-#!/bin/bash
-
-tinyprog -b
-sleep 1
-~/e4thcom-0.8.5/e4thcom -t anyforth -b B921600 -d ttyACM0

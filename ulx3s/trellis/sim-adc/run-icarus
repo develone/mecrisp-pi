@@ -1,8 +1,0 @@
-#!/bin/sh
-
-cd ../..
-iverilog -o trellis/sim-adc/test.vvp -s test trellis/sim-adc/test.v trellis/j1a.v
-cd trellis/sim-adc
-vvp *.vvp
-
-
