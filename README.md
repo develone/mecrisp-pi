@@ -1,12 +1,14 @@
 Mecrisp-Pi
+```diff
+-  Not Yet Released.  This contains a synthesizing Pico-Ice
+- Mecrisp Ice processor.  Any software on the RP2040 can
+- talk to it over Uart.  I am working to add the ability
+- to send messages from the ICE40 to MicroPython running on the RP2040. 
+ 
+```
 
-<font color="red">Not Yet Released.  This contains a synthesizing
-Pico-Ice Mecrisp Ice processor.  Any software on the RP2040 can talk to it
-over Uart.  I am working to add the ability to send messages from the ICE40
-to MicroPython running on the RP2040. 
 
-</font>
-<br>
+ 
 
 Mecrisp Pi is an FPGA co-processor for the RP2040 and RP2350 chips
 running on the
