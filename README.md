@@ -1,56 +1,91 @@
-Mecrisp-Pi
-```diff
--  Not Yet Released.  This contains a synthesizing Pico-Ice
-- Mecrisp Ice processor.  Any software on the RP2040 can
-- talk to it over Uart.  I am working to add the ability
-- to send messages from the ICE40 to MicroPython running on the RP2040. 
- 
-```
-
-
- 
+# Mecrisp-Pi
 
 Mecrisp Pi is an FPGA co-processor for the RP2040 and RP2350 chips
 running on the
 [Pico-Ice](https://tinyvision.ai/products/pico-ice-fpga-trainer-board)
 and (soon) [Pico2-Ice](https://discord.gg/4X6caMbHCD) circuit boards.
-Mecrisp Pi provides the firmware and verilog to connect the two chips.
-The ICE40UP5k FPGA can be used to accelerate parallel processes, and
-provides another 32 GPIO ports.  The [Mecrisp Ice
+Mecrisp Pi provides the firmware, verilog and Forth to connect the two chips.  The ICE40UP5k FPGA can be used to accelerate parallel
+processes, and provides another 32 GPIO ports.  The [Mecrisp Ice
 Interpreter](https://mecrisp-ice.readthedocs.io/en/latest/api.html)
-makes it much easier to debug your hardware designs.  The RP2350
-provides DVI output.  4 PMODS ports are available for additional
-functionality. For example, a Diligent I2S2 PMOD can provide stereo
-audio I/O.
+makes it much easier to debug your hardware designs.  The RP2350 on
+the new pico2-ice provides DVI output.  4 PMODS ports are available
+for additional functionality. For example, a Diligent I2S2 PMOD can
+provide stereo audio I/O.
 
 This repository includes:
 
-    ready-to-fly versions of the J1 for many boards Search for your board
-    name in this directory change into that directory, read the local README,
-    and type "./compile". That will generate the bitstream (also called gateware ) for that board.
-    How to download it to your board will depend on the specific board and operating system.
+    Compiled gateware for the J1a for the pico-ice FPGA.
 
-    Verilog definitions for the various processors, as well as additional useful
-    modules in ./common-verilog.
+    Verilog definitions as well as additional useful modules in
+    ./common-verilog.
 
-    Ready-to-emulate verilator simulators for the different versions in ./verilator*
+    Ready-to-emulate verilator simulators in ./verilator*
 
-    Cross compilers for the different versoins, and the definitions of the various instructions sets are located in ./common-crosscompiler.
+    Cross compiler and the definitions of in ./common-crosscompiler.
 
     An extended version of the Hayes-Forth test suite is located in
-    ./testsuite. Documentation is in german.
+    ./testsuite. Some of the documentation is in german.
 
-    Pascal simulators are also in ./common-crosscompiler.
+    Pascal simulator is also in ./common-crosscompiler.
 
-    A easy-to-use starting point for defining your own board can be found in
-    ./skeletalstructure and
+## INSTALLATION
 
-    A wordlist (will soon be) in ./documentation/glossary.txt
+You can either just flash the gateware or build it yourself.
 
-This repository does not yet include the firmware and gateware for sending
-data from the FPGA to the RP chip. 
+### Flash the Gateware
 
-If you have any questions, please post them on our discussion board.
-https://sourceforge.net/p/mecrisp/discussion/general/
+First clone the repository
 
-Or [join the Hana-1 Discord server](https://discord.gg/DY2HZG5g)
+`git clone https://github.com/PythonLinks/mecrisp-pi`
+
+`cd mecrisp-pi/pico-ice`
+
+To flash the gateware on Ubuntu try:
+
+`sudo dfu-util -a 0 -D j1a.bin`
+
+To talk to the fpga, first you have to find the usb devices.
+
+`ls /dev | grep ACM`
+
+If there is `/dev/ttyACM1` then in order to
+get proper cr behavior on Ubuntu try:
+
+`picocom --imap crcrlf,lfcrlf /dev/ttyACM1`
+
+On Mac OS X I did
+
+`ls /dev | grep usb`
+
+And then:
+
+`picocom --imap crcrlf,lfcrlf /dev/tty.usbmodem1103`
+
+But I think that the current release of the pico-ice-sdk has problems
+on Mac Os.  If you really need Mac OS, tell me, and I will try to
+debug the pico-ice firmware.  I need it for myself anyhow. 
+
+### Compiling and Synthesizing
+
+First install gForth, freePascal, and OSS cad suite. Then
+
+```
+git clone https://github.com/PythonLinks/mecrisp-pi
+cd mecrisp-pi
+./compile
+```
+
+And then follow the above instructions for flashing and connecting.
+
+If you have any problems, please send me an email.
+lozinski@PythonLinks.info
+
+## NOTES
+
+Uart communication works.
+
+This repository does not yet include the firmware and gateware for
+spi communication between the RP2040 and the ICE40 FPGA.  The RP2040 side works, I just have to add the FPGA side.  Enjoyable work. 
+
+If you have any questions, please [join the Mecrisp-Pi Discord server](https://discord.gg/DY2HZG5g)
+

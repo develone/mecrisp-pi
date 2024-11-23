@@ -17,7 +17,6 @@ OLD/*
 build
 *~
 #.
-*.bin
 ./simulate/versions/*
 ./fpga/versions/*
 included.fs
