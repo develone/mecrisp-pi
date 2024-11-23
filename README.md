@@ -38,7 +38,7 @@ First clone the repository
 
 `git clone https://github.com/PythonLinks/mecrisp-pi`
 
-'cd mecrisp-pi/pico-ice`
+`cd mecrisp-pi/pico-ice`
 
 To flash the gateware on Ubuntu try:
 
@@ -87,8 +87,5 @@ Uart communication works.
 This repository does not yet include the firmware and gateware for
 spi communication between the RP2040 and the ICE40 FPGA.  The RP2040 side works, I just have to add the FPGA side.  Enjoyable work. 
 
-If you have any questions, please post them on our discussion board.
-https://sourceforge.net/p/mecrisp/discussion/general/
-
-Or [join the Mecrisp-Pi Discord server](https://discord.gg/DY2HZG5g)
+If you have any questions, please [join the Mecrisp-Pi Discord server](https://discord.gg/DY2HZG5g)
 
