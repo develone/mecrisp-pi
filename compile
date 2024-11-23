@@ -25,5 +25,6 @@ echo "COMPILING FOR PICO-ICE"
 echo "-------------------------------------------------------------------------------"
 
 cd pico-ice
+./compilenucleus
 ./compile
-
+more README.md
