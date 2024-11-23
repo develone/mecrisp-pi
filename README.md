@@ -38,7 +38,7 @@ First clone the repository
 
 `git clone https://github.com/PythonLinks/mecrisp-pi`
 
-'cd mecrisp-pi`
+'cd mecrisp-pi/pico-ice`
 
 To flash the gateware on Ubuntu try:
 
@@ -74,6 +74,7 @@ git clone https://github.com/PythonLinks/mecrisp-pi
 cd mecrisp-pi
 ./compile
 ```
+
 And then follow the above instructions for flashing and connecting.
 
 If you have any problems, please send me an email.
