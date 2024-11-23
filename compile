@@ -15,7 +15,15 @@ echo "  Testsuite"
 echo "-------------------------------------------------------------------------------"
 
 cd testsuite
+mkdir build
+./compilenucleus
 ./testing
 cd ..
 
-echo "NOW CHANGE INTO YOUR TARGET BOARD DIRECTORY AND TYPE ./compile"
+echo "-------------------------------------------------------------------------------"
+echo "COMPILING FOR PICO-ICE"
+echo "-------------------------------------------------------------------------------"
+
+cd pico-ice
+./compile
+
