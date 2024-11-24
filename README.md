@@ -4,7 +4,17 @@ Mecrisp Pi is an FPGA co-processor for the RP2040 and RP2350 chips
 running on the
 [Pico-Ice](https://tinyvision.ai/products/pico-ice-fpga-trainer-board)
 and (soon) [Pico2-Ice](https://discord.gg/4X6caMbHCD) circuit boards.
-Mecrisp Pi provides the firmware, verilog and Forth to connect the two chips.  The ICE40UP5k FPGA can be used to accelerate parallel
+Mecrisp Pi provides the firmware, verilog and Forth to connect the two chips.
+
+There are several differrent ways to use Mecrisp-Pi. We can build a
+Jupiter Ace style Forth computer.  The RP chip has its own FLASH and
+the software to run a FAT file system.  The newer RP2350 chip in the
+pico2-ice can drive DVI/HDMI display.  There are PIO programs to drive
+USB host devices.  The ICE40 has its own Flash which we can use for a
+block based file system.  Additional peripherals can be added with the
+pre-soldered pmods, no need to learn how to solder.  
+
+The ICE40UP5k FPGA can also be used to accelerate parallel
 processes, and provides another 32 GPIO ports.  The [Mecrisp Ice
 Interpreter](https://mecrisp-ice.readthedocs.io/en/latest/api.html)
 makes it much easier to debug your hardware designs.  The RP2350 on
