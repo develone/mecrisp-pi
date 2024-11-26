@@ -1,0 +1,75 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Tue Nov 26 07:35:16 2024
+[*]
+[dumpfile] "/Users/lozinski/Documents/Products/FORTH/CODE/MECRISP/mecrisp-pi/test-benches/out.vcd"
+[dumpfile_mtime] "Tue Nov 26 07:34:13 2024"
+[dumpfile_size] 3660
+[savefile] "/Users/lozinski/Documents/Products/FORTH/CODE/MECRISP/mecrisp-pi/test-benches/signal.gtkw"
+[timestart] 0
+[size] 1296 600
+[pos] -1 -1
+*-4,000000 65 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[markername] AA
+[markername] BB
+[markername] CC
+[markername] DD
+[markername] EE
+[markername] FF
+[markername] GG
+[markername] HH
+[markername] II
+[markername] JJ
+[markername] KK
+[markername] LL
+[markername] MM
+[markername] NN
+[markername] OO
+[markername] PP
+[markername] QQ
+[markername] RR
+[markername] SS
+[markername] TT
+[markername] UU
+[markername] VV
+[markername] WW
+[markername] XX
+[markername] YY
+[markername] ZZ
+[treeopen] tb.
+[sst_width] 253
+[signals_width] 193
+[sst_expanded] 1
+[sst_vpaned_height] 159
+@28
+tb.spiOut.clock
+@22
+tb.spiOut.data[15:0]
+@28
+tb.spiOut.writeSPI
+@200
+-SPI OUT            
+@28
+tb.spiOut.masterChipSelectN
+tb.spiOut.valid
+@22
+tb.spiOut.shifter[15:0]
+tb.spiOut.state[4:0]
+@28
+tb.spiOut.MOSI
+@200
+-SPI IN              
+@28
+tb.spiIn.slaveChipSelectN
+@24
+tb.spiOut.state[4:0]
+@28
+tb.spiIn.MOSI
+@29
+tb.spiIn.shifter[15:0]
+@28
+tb.spiIn.interupt
+@22
+tb.spiIn.data[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
