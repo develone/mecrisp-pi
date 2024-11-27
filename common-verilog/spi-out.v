@@ -68,8 +68,8 @@ module SpiOut(input wire clock,
 
    assign MOSI = shifter[15];
 
-   initial state <= 0;
-   initial masterChipSelectN <= 1;
+   initial state = 0;
+   initial masterChipSelectN = 1;
    
 endmodule
    

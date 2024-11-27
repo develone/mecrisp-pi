@@ -3,7 +3,7 @@
 module SpiIn(input wire        clock,
 	      input wire        MOSI,
 	      input wire        slaveChipSelectN,
-	      output reg       interupt,
+	      output reg       interrupt,
 	      output reg [15:0] data);
 
    reg [3:0]		  state;
@@ -30,10 +30,10 @@ module SpiIn(input wire        clock,
 always @(posedge clock)
     if (state == 4'd15)
       begin
-      interupt <= 1;
+      interrupt <= 1;
       data[15:0] <= {shifter[14:0],MOSI};
       end
     else 
-      interupt <=0;
+      interrupt <=0;
 	   
 endmodule
