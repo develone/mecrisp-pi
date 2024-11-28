@@ -5,6 +5,8 @@
 
 `include "../common-verilog/uart.v"
 `include "j1-universal-16kb.v"
+`include "../common-verilog/spi-out.v"
+`include "../common-verilog/spi-in.v"
 
 module top(input  oscillator,
 
@@ -35,37 +37,8 @@ module top(input  oscillator,
   wire [15:0] io_dout;
   wire [15:0] io_din;
 
-  reg interrupt = 0;
+  wire interrupt;
 
-  // ######   Processor   #####################################
-
-  j1 _j1(
-    .clk(clk),
-    .resetq(resetq),
-
-    .io_rd(io_rd),
-    .io_wr(io_wr),
-    .io_dout(io_dout),
-    .io_din(io_din),
-    .io_addr(io_addr),
-
-    .interrupt_request(interrupt)
-  );
-
-  // ######   Ticks   #########################################
-
-  reg [15:0] ticks;
-
-  wire [16:0] ticks_plus_1 = ticks + 1;
-
-  always @(posedge clk)
-    if (io_wr & io_addr[14])
-      ticks <= io_dout;
-    else
-      ticks <= ticks_plus_1;
-
-  always @(posedge clk) // Generate interrupt on ticks overflow
-    interrupt <= ticks_plus_1[16];
 
   // ######   Terminal   ######################################
 
@@ -86,35 +59,6 @@ module top(input  oscillator,
      .tx_data(io_dout[7:0]),
      .rx_data(uart0_data));
 
-  // ######   IO Ports   ######################################
-
-  /*        bit READ            WRITE
-
-      0001  0
-      0002  1
-      0004  2
-      0008  3
-
-      0010  4
-      0020  5
-      0040  6
-      0080  7
-
-      0100  8
-      0200  9
-      0400  10
-      0800  11
-
-      1000  12  UART RX         UART TX
-      2000  13  UART Flags
-      4000  14  Ticks           Set Ticks
-      8000  15
-  */
-
-  assign io_din =
-
-    (io_addr[12] ? { 8'd0, uart0_data}                                              : 16'd0) |
-    (io_addr[13] ? {14'd0, uart0_valid, !uart0_busy}                                : 16'd0) |
-    (io_addr[14] ?         ticks                                                    : 16'd0) ;
-
+`include "../common-verilog/shared.v"
+   
 endmodule // top

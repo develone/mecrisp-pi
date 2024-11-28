@@ -6,7 +6,6 @@
 module j1(
   input wire clk,
   input wire resetq,
-
   output wire io_rd,
   output wire io_wr,
   output wire [15:0] io_addr,

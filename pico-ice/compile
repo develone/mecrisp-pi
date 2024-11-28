@@ -3,7 +3,7 @@
 # ./compilenucleus
 
 echo "Synthesize design..."
-yosys  -q -p "synth_ice40 -top top -json build/j1a.json -blif build/j1a.blif" verilog/j1a.v
+yosys  -q -p "synth_ice40 -dsp -top top -json build/j1a.json -blif build/j1a.blif" verilog/j1a.v
 
 echo "Place and Route..."
 # arachne-pnr -p verilog/j1a.pcf build/j1a.blif -o build/j1a.txt -d 8k

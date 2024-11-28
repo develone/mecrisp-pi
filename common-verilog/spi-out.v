@@ -4,7 +4,7 @@ module SpiOut(input wire clock,
 	      output reg  masterChipSelectN,
 	      input wire  [15:0] data,
               input wire writeSPI, 
-	      output reg  MOSI);
+	      output wire  MOSI);
    
    reg [15:0]  shifter;
    reg [4:0]   state;
