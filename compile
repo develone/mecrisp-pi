@@ -27,4 +27,4 @@ echo "--------------------------------------------------------------------------
 cd pico-ice
 ./compilenucleus
 ./compile
-more README.md
+

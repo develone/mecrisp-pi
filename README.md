@@ -93,6 +93,7 @@ First install gForth, freePascal, and OSS cad suite. Then
 git clone https://github.com/PythonLinks/mecrisp-pi
 cd mecrisp-pi
 ./compile
+cd pico-ice
 ```
 
 And then follow the above instructions for flashing and connecting.
