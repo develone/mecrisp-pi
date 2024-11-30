@@ -10,7 +10,7 @@ module tb();
    wire	       masterChipSelectN;
    wire	       MOSI;
    wire	       MISO;
-   wire	       interupt;
+   wire	       interrupt;
    
    always #10 clock = ~clock; 
 
@@ -25,7 +25,7 @@ SpiIn spiIn (
       .clock(clock),
       .MOSI(MOSI),
       .slaveChipSelectN(masterChipSelectN),
-      .interupt(interupt),
+      .interrupt(interrupt),
       .data(dataIn));
    
 initial begin
@@ -59,7 +59,7 @@ end
 //                 dataOut, MOSI, spiOut.state, spiOut.shifter, 
 //		 spiIn.state, spiIn.shifter, dataIn);
    
-always @(posedge interupt)
+always @(posedge interrupt)
   $display ("Data In = %d \n", dataIn);
    
      
