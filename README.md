@@ -4,11 +4,8 @@ Mecrisp Pi is a stack based FPGA co-processor, and Forth interpreter,
 for the RP2040 and RP2350 chips running on the
 [Pico-Ice](https://tinyvision.ai/products/pico-ice-fpga-trainer-board)
 and (soon) [Pico2-Ice](https://discord.gg/4X6caMbHCD) circuit boards.
-Mecrisp Pi provides the Verilog and Forth to connect the two chips.
-All it needs is your favorite firmware/language on the RP2040/RP2350.
-Since everyone wants a different langauge on the RP2040/RP2350 I leave
-that part in your good hands, and will be most happy to support you
-with the Verilog and Forth part.
+Mecrisp Pi provides the Verilog and Mecrisp-Ice Forth to connect the
+two chips.
 
 There are many differrent things you can build with Mecrisp-Pi:
 - a Jupiter Ace style Forth Computer.
@@ -110,8 +107,12 @@ Or post an issue here.
 
 Uart communication works.
 
-This repository does not yet include the firmware and gateware for
-spi communication between the RP2040 and the ICE40 FPGA.  The RP2040 side works, I just have to add the FPGA side.  Enjoyable work. SPI send and receive now work in a test bench in the dev branch.  Preogress is fast and enjoyable. 
+This repository includes the gateware for
+spi communication between the RP2040 and the ICE40 FPGA.
+All it needs is your favorite firmware/language on the RP2040/RP2350.
+Since everyone wants a different langauge on the RP2040/RP2350 I leave
+that part in your good hands, and will be most happy to support you
+with the Verilog and Forth part. Details are in CDC.md.
 
 If you have any questions, please [join the Mecrisp-Pi Discord server](https://discord.gg/DY2HZG5g)
 
