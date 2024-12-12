@@ -94,6 +94,7 @@ git clone https://github.com/PythonLinks/mecrisp-pi
 cd mecrisp-pi
 ./compile
 cd pico-ice
+./compile
 ```
 
 And then follow the above instructions for flashing and connecting.
