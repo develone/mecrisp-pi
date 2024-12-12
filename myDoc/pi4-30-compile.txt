@@ -1,0 +1,358 @@
+devel@pi4-30:~/mecrisp-pi $ ./compile 
+-------------------------------------------------------------------------------
+  Compile Ice Cream Machine...
+-------------------------------------------------------------------------------
+Free Pascal Compiler version 3.2.2 [2022/08/27] for aarch64
+Copyright (c) 1993-2021 by Florian Klaempfl and others
+Target OS: Linux for AArch64
+Compiling icecreammachine-8kb.pas
+Assembling program
+Linking icecreammachine-8kb
+316 lines compiled, 8.3 sec
+Free Pascal Compiler version 3.2.2 [2022/08/27] for aarch64
+Copyright (c) 1993-2021 by Florian Klaempfl and others
+Target OS: Linux for AArch64
+Compiling icecreammachine-16kb.pas
+Assembling program
+Linking icecreammachine-16kb
+340 lines compiled, 0.2 sec
+-------------------------------------------------------------------------------
+  Testsuite
+-------------------------------------------------------------------------------
+Tidy up...
+Compile nucleus...
+redefined Literal with literal  redefined ]  
+Target memory usage: FA0 Bytes
+
+Compile additional Forth sources...
+e7771a09e6ddcfa614670b13be1c3377  build/nucleus.hex
+ea2b4893df00b9448ae510bd18b979e3  build/iceimage.hex
+Tidy up...
+Compile nucleus...
+redefined Literal with literal  redefined ]  
+Target memory usage: FA0 Bytes
+
+Compile additional Forth sources...
+e7771a09e6ddcfa614670b13be1c3377  build/nucleus.hex
+ea2b4893df00b9448ae510bd18b979e3  build/iceimage.hex
+Free Pascal Compiler version 3.2.2 [2022/08/27] for aarch64
+Copyright (c) 1993-2021 by Florian Klaempfl and others
+Target OS: Linux for AArch64
+Compiling icecreammachine-16kb-speicherkarte.pas
+Compiling zahlenzauber.pas
+Assembling zahlenzauber
+Assembling program
+Linking icecreammachine-16kb-speicherkarte
+640 lines compiled, 2.9 sec
+-------------------------------------------------------------------------------
+  Ungetestete Routinen:
+-------------------------------------------------------------------------------
+1C98 Code: 1C9E - 1CA4 Unknown: 0004  Name: see
+1C4E Code: 1C56 - 1C96 Unknown: 0021  Name: seec
+1B76 Code: 1B84 - 1C4C Unknown: 0065  Name: disasm-step
+1B52 Code: 1B5E - 1B74 Unknown: 000C  Name: memstamp
+1AAA Code: 1AB2 - 1B50 Unknown: 0050  Name: alu.
+19EC Code: 19F4 - 1AA8 Unknown: 005B  Name: name.
+19D8 Code: 19E6 - 19EA Unknown: 0003  Name: disasm-cont
+19C6 Code: 19D2 - 19D6 Unknown: 0003  Name: disasm-$
+189E Code: 18A4 - 190C Unknown: 001A  Name: .s
+1834 Code: 183C - 189C Unknown: 0031  Name: dump
+173E Code: 1748 - 174E Unknown: 0002  Name: divisor
+172E Code: 1736 - 173C Unknown: 0002  Name: shift
+171A Code: 1726 - 172C Unknown: 0002  Name: dividend
+13E0 Code: 13EE - 1402 Unknown: 000B  Name: cornerstone
+11D6 Code: 11DC - 11E0 Unknown: 0002  Name: hld
+11CC Code: 11D2 - 11D4 Unknown: 0002  Name: BUF
+1140 Code: 1148 - 11CA Unknown: 001E  Name: BUF0
+0F4A Code: 0F52 - 0F5C Unknown: 0006  Name: xor!
+0F32 Code: 0F3A - 0F48 Unknown: 0008  Name: bic!
+0F1E Code: 0F26 - 0F30 Unknown: 0006  Name: bis!
+0F0E Code: 0F16 - 0F1C Unknown: 0004  Name: eint?
+0F04 Code: 0F0C - 0F0C Unknown: 0001  Name: dint
+0EFA Code: 0F02 - 0F02 Unknown: 0001  Name: eint
+0EBE Code: 0EC6 - 0EF8 Unknown: 0001  Name: quit
+0E18 Code: 0E22 - 0E7A Unknown: 0007  Name: accept
+0C20 Code: 0C2A - 0E16 Unknown: 0015  Name: number
+0B74 Code: 0B7C - 0B82 Unknown: 0001  Name: abort
+057C Code: 0582 - 0584 Unknown: 0002  Name: tib
+0570 Code: 0578 - 057A Unknown: 0002  Name: init
+0564 Code: 056C - 056E Unknown: 0002  Name: forth
+048A Code: 0494 - 0540 Unknown: 0011  Name: /string
+0270 Code: 0276 - 0276 Unknown: 0001  Name: io@
+0266 Code: 026C - 026E Unknown: 0002  Name: io!
+-------------------------------------------------------------------------------
+  Gefundene Fehler:
+-------------------------------------------------------------------------------
+           = 0= IF S" INCORRECT RESULT: " ERROR LEAVE THEN  ok.
+      S" WRONG NUMBER OF RESULTS: " ERROR  ok.
+-------------------------------------------------------------------------------
+COMPILING FOR PICO-ICE
+-------------------------------------------------------------------------------
+Tidy up...
+Compile nucleus...
+redefined Literal with literal  redefined ]  
+Target memory usage: FA0 Bytes
+
+Compile additional Forth sources...
+e7771a09e6ddcfa614670b13be1c3377  build/nucleus.hex
+cdbacbb1e0801c15333827ac8f8727cb  build/iceimage.hex
+Synthesize design...
+Place and Route...
+Info: constrained 'TXD' to bel 'X19/Y31/io1'
+Info: constrained 'RXD' to bel 'X18/Y31/io1'
+Info: constrained 'oscillator' to bel 'X12/Y31/io1'
+Info: constrained 'reset_button' to bel 'X16/Y0/io0'
+
+Info: Packing constants..
+Info: Packing IOs..
+Info: Packing LUT-FFs..
+Info:      833 LCs used as LUT4 only
+Info:     1100 LCs used as LUT4 and DFF
+Info: Packing non-LUT FFs..
+Info:      144 LCs used as DFF only
+Info: Packing carries..
+Info:       22 LCs used as CARRY only
+Info: Packing indirect carry+LUT pairs...
+Info:       12 LUTs merged into carry LCs
+Info: Packing RAMs..
+Info: Placing PLLs..
+Info: Packing special functions..
+Info: Packing PLLs..
+Info: Promoting globals..
+Info: promoting oscillator$SB_IO_IN (fanout 1293)
+Info: promoting RXD_SB_LUT4_I0_O_SB_LUT4_I3_O[0] [reset] (fanout 76)
+Info: promoting spiOut.valid_SB_LUT4_I2_1_O_SB_DFFE_E_Q_SB_LUT4_I3_O [reset] (fanout 19)
+Info: promoting _j1.dspN_SB_DFFR_D_1_Q[2] [cen] (fanout 496)
+Info: promoting _j1.mem.0.17_RDATA_1_SB_LUT4_I2_O_SB_LUT4_I0_O_SB_LUT4_I1_O[2] [cen] (fanout 496)
+Info: promoting spiOut.valid_SB_LUT4_I2_O [cen] (fanout 21)
+Info: promoting _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_I3_O [cen] (fanout 16)
+Info: Constraining chains...
+Info:       15 LCs used to legalise carry chains.
+Info: Checksum: 0x232934b2
+
+Info: Device utilisation:
+Info: 	         ICESTORM_LC:    2104/   5280    39%
+Info: 	        ICESTORM_RAM:      24/     30    80%
+Info: 	               SB_IO:       4/     96     4%
+Info: 	               SB_GB:       7/      8    87%
+Info: 	        ICESTORM_PLL:       0/      1     0%
+Info: 	         SB_WARMBOOT:       0/      1     0%
+Info: 	        ICESTORM_DSP:       1/      8    12%
+Info: 	      ICESTORM_HFOSC:       0/      1     0%
+Info: 	      ICESTORM_LFOSC:       0/      1     0%
+Info: 	              SB_I2C:       0/      2     0%
+Info: 	              SB_SPI:       0/      2     0%
+Info: 	              IO_I3C:       0/      2     0%
+Info: 	         SB_LEDDA_IP:       0/      1     0%
+Info: 	         SB_RGBA_DRV:       0/      1     0%
+Info: 	      ICESTORM_SPRAM:       0/      4     0%
+
+Info: Placed 4 cells based on constraints.
+Info: Creating initial analytic placement for 2001 cells, random placement wirelen = 55154.
+Info:     at initial placer iter 0, wirelen = 136
+Info:     at initial placer iter 1, wirelen = 123
+Info:     at initial placer iter 2, wirelen = 121
+Info:     at initial placer iter 3, wirelen = 121
+Info: Running main analytical placer, max placement attempts per cell = 572450.
+Info:     at iteration #1, type ALL: wirelen solved = 121, spread = 10735, legal = 11709; time = 0.20s
+Info:     at iteration #2, type ALL: wirelen solved = 842, spread = 8827, legal = 10586; time = 0.20s
+Info:     at iteration #3, type ALL: wirelen solved = 1464, spread = 9308, legal = 10550; time = 0.19s
+Info:     at iteration #4, type ALL: wirelen solved = 1689, spread = 8837, legal = 10554; time = 0.18s
+Info:     at iteration #5, type ALL: wirelen solved = 1784, spread = 8278, legal = 10276; time = 0.18s
+Info:     at iteration #6, type ALL: wirelen solved = 1859, spread = 8500, legal = 10102; time = 0.18s
+Info:     at iteration #7, type ALL: wirelen solved = 2038, spread = 8900, legal = 10398; time = 0.18s
+Info:     at iteration #8, type ALL: wirelen solved = 2218, spread = 8797, legal = 10135; time = 0.18s
+Info:     at iteration #9, type ALL: wirelen solved = 2232, spread = 8522, legal = 9597; time = 0.18s
+Info:     at iteration #10, type ALL: wirelen solved = 2461, spread = 9641, legal = 10753; time = 0.18s
+Info:     at iteration #11, type ALL: wirelen solved = 3064, spread = 9948, legal = 11065; time = 0.18s
+Info:     at iteration #12, type ALL: wirelen solved = 3229, spread = 9599, legal = 10684; time = 0.18s
+Info:     at iteration #13, type ALL: wirelen solved = 3139, spread = 9583, legal = 10503; time = 0.18s
+Info:     at iteration #14, type ALL: wirelen solved = 3488, spread = 8768, legal = 9973; time = 0.18s
+Info: HeAP Placer Time: 3.68s
+Info:   of which solving equations: 1.82s
+Info:   of which spreading cells: 0.24s
+Info:   of which strict legalisation: 0.87s
+
+Info: Running simulated annealing placer for refinement.
+Info:   at iteration #1: temp = 0.000000, timing cost = 3273, wirelen = 9597
+Info:   at iteration #5: temp = 0.000000, timing cost = 2983, wirelen = 7853
+Info:   at iteration #10: temp = 0.000000, timing cost = 2648, wirelen = 7348
+Info:   at iteration #15: temp = 0.000000, timing cost = 2426, wirelen = 7077
+Info:   at iteration #20: temp = 0.000000, timing cost = 2420, wirelen = 6826
+Info:   at iteration #25: temp = 0.000000, timing cost = 2289, wirelen = 6685
+Info:   at iteration #27: temp = 0.000000, timing cost = 2211, wirelen = 6667 
+Info: SA placement time 10.40s
+
+Info: Max frequency for clock 'oscillator$SB_IO_IN_$glb_clk': 24.35 MHz (PASS at 12.00 MHz)
+
+Info: Max delay <async>                              -> posedge oscillator$SB_IO_IN_$glb_clk: 15.76 ns
+Info: Max delay posedge oscillator$SB_IO_IN_$glb_clk -> <async>                             : 7.69 ns
+
+Info: Slack histogram:
+Info:  legend: * represents 35 endpoint(s)
+Info:          + represents [1,35) endpoint(s)
+Info: [ 42263,  44161) |+
+Info: [ 44161,  46059) |***+
+Info: [ 46059,  47957) |***********+
+Info: [ 47957,  49855) |************+
+Info: [ 49855,  51753) |*****+
+Info: [ 51753,  53651) |***********************+
+Info: [ 53651,  55549) |***************************+
+Info: [ 55549,  57447) |*************+
+Info: [ 57447,  59345) |*+
+Info: [ 59345,  61243) |+
+Info: [ 61243,  63141) |+
+Info: [ 63141,  65039) |+
+Info: [ 65039,  66937) |*+
+Info: [ 66937,  68835) |+
+Info: [ 68835,  70733) |*+
+Info: [ 70733,  72631) |+
+Info: [ 72631,  74529) |*+
+Info: [ 74529,  76427) |***+
+Info: [ 76427,  78325) |*********+
+Info: [ 78325,  80223) |************************************************************ 
+Info: Checksum: 0x764f2b8a
+
+Info: Routing..
+Info: Setting up routing queue.
+Info: Routing 8511 arcs.
+Info:            |   (re-)routed arcs  |   delta    | remaining|       time spent     |
+Info:    IterCnt |  w/ripup   wo/ripup |  w/r  wo/r |      arcs| batch(sec) total(sec)|
+Info:       1000 |       56        943 |   56   943 |      7589|       2.21       2.21|
+Info:       2000 |      147       1852 |   91   909 |      6724|       0.65       2.86|
+Info:       3000 |      380       2619 |  233   767 |      6140|       0.69       3.55|
+Info:       4000 |      617       3382 |  237   763 |      5644|       0.83       4.38|
+Info:       5000 |      948       4051 |  331   669 |      5233|       1.00       5.38|
+Info:       6000 |     1400       4599 |  452   548 |      4932|       0.96       6.35|
+Info:       7000 |     1826       5159 |  426   560 |      4514|       0.58       6.92|
+Info:       8000 |     2304       5681 |  478   522 |      4278|       0.77       7.70|
+Info:       9000 |     2834       6151 |  530   470 |      4041|       0.90       8.60|
+Info:      10000 |     3339       6646 |  505   495 |      3719|       0.94       9.54|
+Info:      11000 |     3846       7101 |  507   455 |      3493|       1.15      10.69|
+Info:      12000 |     4386       7555 |  540   454 |      3350|       1.11      11.80|
+Info:      13000 |     4820       8091 |  434   536 |      3001|       1.14      12.93|
+Info:      14000 |     5425       8485 |  605   394 |      2864|       1.07      14.01|
+Info:      15000 |     6055       8850 |  630   365 |      2795|       1.13      15.13|
+Info:      16000 |     6294       9595 |  239   745 |      2198|       0.68      15.81|
+Info:      17000 |     6380      10509 |   86   914 |      1371|       0.17      15.98|
+Info:      18000 |     6518      11371 |  138   862 |       594|       0.21      16.19|
+Info:      19000 |     6811      12078 |  293   707 |        56|       1.46      17.65|
+Info:      19182 |     6889      12183 |   78   105 |         0|       0.31      17.96|
+Info: Routing complete.
+Info: Router1 time 17.96s
+Info: Checksum: 0xea469d47
+
+Info: Critical path report for clock 'oscillator$SB_IO_IN_$glb_clk' (posedge -> posedge):
+Info:       type curr  total name
+Info:   clk-to-q  1.39  1.39 Source _j1.mem.0.6_RDATA_1_SB_DFF_Q_1_DFFLC.O
+Info:    routing  5.88  7.27 Net _j1.mem.0.0_RDATA[0] (5,17) -> (18,5)
+Info:                          Sink _j1.mem.0.19_RDATA_1_SB_LUT4_O_LC.I1
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  1.23  8.50 Source _j1.mem.0.19_RDATA_1_SB_LUT4_O_LC.O
+Info:    routing  4.58  13.08 Net _j1.mem.0.19_RDATA_1[3] (18,5) -> (5,8)
+Info:                          Sink _j1.mem.0.19_RDATA_1_SB_LUT4_I2_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  13.95 Source _j1.mem.0.19_RDATA_1_SB_LUT4_I2_LC.O
+Info:    routing  1.76  15.71 Net _j1.mem.0.19_RDATA_1_SB_LUT4_I2_O[3] (5,8) -> (5,9)
+Info:                          Sink _j1.mem.0.19_RDATA_1_SB_LUT4_I2_O_SB_LUT4_I0_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  16.59 Source _j1.mem.0.19_RDATA_1_SB_LUT4_I2_O_SB_LUT4_I0_LC.O
+Info:    routing  1.76  18.35 Net _j1.pcN_SB_LUT4_O_15_I0[1] (5,9) -> (5,10)
+Info:                          Sink _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  19.22 Source _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O_LC.O
+Info:    routing  4.14  23.37 Net _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O_I3[2] (5,10) -> (11,15)
+Info:                          Sink _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  24.24 Source _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O_LC.O
+Info:    routing  1.76  26.00 Net _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_I3[1] (11,15) -> (12,14)
+Info:                          Sink _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  26.88 Source _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_O_LC.O
+Info:    routing  1.76  28.64 Net _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3[1] (12,14) -> (13,14)
+Info:                          Sink _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_I3_1_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  29.51 Source _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_I3_1_LC.O
+Info:    routing  2.95  32.46 Net _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_I3_1_O[1] (13,14) -> (15,16)
+Info:                          Sink _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_I3_1_O_SB_LUT4_I2_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  33.34 Source _j1.umstar_SB_MAC16_O_BHOLD_SB_LUT4_O_I3_SB_LUT4_I3_1_O_SB_LUT4_I2_LC.O
+Info:    routing  4.25  37.58 Net _j1.dstack.stack_SB_DFFE_Q_D_SB_LUT4_O_I3[3] (15,16) -> (13,25)
+Info:                          Sink _j1.dstack.stack_SB_DFFE_Q_467_D_SB_LUT4_O_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      setup  0.82  38.41 Source _j1.dstack.stack_SB_DFFE_Q_467_D_SB_LUT4_O_LC.I3
+Info: 9.56 ns logic, 28.84 ns routing
+
+Info: Critical path report for cross-domain path '<async>' -> 'posedge oscillator$SB_IO_IN_$glb_clk':
+Info:       type curr  total name
+Info:     source  0.00  0.00 Source RXD$sb_io.D_IN_0
+Info:    routing  6.68  6.68 Net RXD$SB_IO_IN (18,31) -> (2,9)
+Info:                          Sink RXD_SB_LUT4_I0_LC.I0
+Info:                          Defined in:
+Info:                               ../common-verilog/uart.v:27.12-27.14
+Info:      logic  1.28  7.97 Source RXD_SB_LUT4_I0_LC.O
+Info:    routing  1.76  9.73 Net RXD_SB_LUT4_I0_O[2] (2,9) -> (2,9)
+Info:                          Sink RXD_SB_LUT4_I0_O_SB_LUT4_I3_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  10.60 Source RXD_SB_LUT4_I0_O_SB_LUT4_I3_LC.O
+Info:    routing  1.76  12.36 Net RXD_SB_LUT4_I0_O_SB_LUT4_I3_O[1] (2,9) -> (2,9)
+Info:                          Sink RXD_SB_LUT4_I0_O_SB_LUT4_I3_O_SB_LUT4_I3_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  13.24 Source RXD_SB_LUT4_I0_O_SB_LUT4_I3_O_SB_LUT4_I3_LC.O
+Info:    routing  3.53  16.77 Net RXD_SB_LUT4_I0_O_SB_LUT4_I3_O_SB_LUT4_I3_O (2,9) -> (2,10)
+Info:                          Sink _uart0.recv_state_SB_DFFESR_Q_1_D_SB_LUT4_O_LC.CEN
+Info:      setup  0.10  16.87 Source _uart0.recv_state_SB_DFFESR_Q_1_D_SB_LUT4_O_LC.CEN
+Info: 3.13 ns logic, 13.74 ns routing
+
+Info: Critical path report for cross-domain path 'posedge oscillator$SB_IO_IN_$glb_clk' -> '<async>':
+Info:       type curr  total name
+Info:   clk-to-q  1.39  1.39 Source TXD_SB_DFFESS_Q_D_SB_LUT4_O_LC.O
+Info:    routing  6.74  8.12 Net TXD$SB_IO_OUT (10,10) -> (19,31)
+Info:                          Sink TXD$sb_io.D_OUT_0
+Info:                          Defined in:
+Info:                               ../common-verilog/uart.v:26.12-26.14
+Info: 1.39 ns logic, 6.74 ns routing
+
+Info: Max frequency for clock 'oscillator$SB_IO_IN_$glb_clk': 26.04 MHz (PASS at 12.00 MHz)
+
+Info: Max delay <async>                              -> posedge oscillator$SB_IO_IN_$glb_clk: 16.87 ns
+Info: Max delay posedge oscillator$SB_IO_IN_$glb_clk -> <async>                             : 8.12 ns
+
+Info: Slack histogram:
+Info:  legend: * represents 34 endpoint(s)
+Info:          + represents [1,34) endpoint(s)
+Info: [ 44925,  46683) |*********+
+Info: [ 46683,  48441) |*******+
+Info: [ 48441,  50199) |************+
+Info: [ 50199,  51957) |*******+
+Info: [ 51957,  53715) |******+
+Info: [ 53715,  55473) |*********+
+Info: [ 55473,  57231) |*********************+
+Info: [ 57231,  58989) |**************************+
+Info: [ 58989,  60747) |+
+Info: [ 60747,  62505) |+
+Info: [ 62505,  64263) |+
+Info: [ 64263,  66021) |+
+Info: [ 66021,  67779) |+
+Info: [ 67779,  69537) |+
+Info: [ 69537,  71295) |+
+Info: [ 71295,  73053) |+
+Info: [ 73053,  74811) |****+
+Info: [ 74811,  76569) |**+
+Info: [ 76569,  78327) |***********+
+Info: [ 78327,  80085) |************************************************************ 
+
+Info: Program finished normally.
+Create Bitstream...
+Finished.
