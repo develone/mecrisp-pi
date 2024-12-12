@@ -1,0 +1,14 @@
+Type [C-a] [C-h] to see available commands
+Terminal ready
+  ok.
+words new see seec disasm-step memstamp alu. name. disasm-cont disasm-$ insight .s dump f/ ud/mod (ud/mod) divisor shift dividend f* 
+s>f 2constant 2variable f. f.n f# hold< du<= du>= du> du< dmax dmin d<= d>= d> d< 2rot 2nip 2arshift 2rshift 2lshift dshr d2/ d<> 
+d= d0< 2xor 2and 2or nextirq ticks unused cornerstone endcase endof of case s" within pad ." mod / /mod move u.r .r d.r rtype u. . 
+d. ud. (d.) #> #s # .digit sign hold <# hld BUF BUF0 spaces */ */mod fm/mod sm/rem sgn constant variable m* >body buffer: create 
+repeat while else <= >= u<= u>= ( [char] ['] welcome xor! bic! bis! eint? dint eint quit evaluate refill accept number digit \ 
+char ' postpone literal abort rdrop r@ r> >r hex binary decimal unloop j i +loop loop ?do leave do recurse does> until again begin 
+then if ahead ; exit :noname : ] [ immediate foldable sliteral s, compile, c, , allot parse parse-name source 2! 2@ cmove> cmove 
+fill sfind align aligned words link@ here tib init forth >in base state /string type count .x .x2 bl cr space c! c@ emit key key? 
+emit? pause nop um/mod * um* d2* d0= m+ s>d dabs dnegate d- d+ depth io@ io! nip over dup swap u< < = invert not or and xor - + ! 
+2/ 2* cells abs bounds umax umin max min 2over 2swap +! 2dup ?dup 2drop tuck -rot rot true false drop u> 0> 0< > 0<> <> cell+ 0= 
+rdepth @ 1- negate 1+ arshift rshift lshift execute  ok.
