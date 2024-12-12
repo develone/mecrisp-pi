@@ -1,0 +1,19 @@
+I posted 12/11/24 how download the forth code to do the lo-pass jpeg
+
+variable lp 
+variable rp 
+variable sp 
+155 sp ! 
+156 rp ! 
+157 lp !
+: lo-pass-fwd-1 rp @ 2/  ;
+: lo-pass-fwd-2 sp @ lp @ 2/  - sp ! ; 
+lo-pass-fwd-2 lo-pass-fwd-1 
+
+Christopher wrote in reply on how to download forth.fs to forth  
+In mecrisp-pi/pico-ice/compilenucleus
+
+cat ../common-forth/coredefinitions.fs basisdefinitions.fs ../common/double.fs ../common/fixpoint.fs ../common-forth/insight-16kb.fs > included.fs 
+../common-crosscompiler/icecreammachine-16kb build/nucleus.hex build/iceimage.hex included.fs > build/log.txt
+
+If you add your forth file to that, it will get loaded into the fpga.
