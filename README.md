@@ -94,9 +94,18 @@ git clone https://github.com/PythonLinks/mecrisp-pi
 cd mecrisp-pi
 ./compile
 cd pico-ice
+./compile
 ```
 
 And then follow the above instructions for flashing and connecting.
+
+## Adding Your Forth
+To add your forth to the cross compiler, please edit this line in
+``pico-ice/compilenucleus``.
+
+```
+cat ../common-forth/coredefinitions.fs basisdefinitions.fs ../common/double.fs ../common/fixpoint.fs ../common-forth/insight-16kb.fs > included.fs
+```
 
 If you have any problems, please send me an email.
 lozinski@PythonLinks.info
