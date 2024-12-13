@@ -1,0 +1,55 @@
+12/13/24 Succesfully added words to forth
+
+created devel@pi4-30:~/mecrisp-pi/pico-ice/common-forth/test.fs
+: test 200 0 do i depth . loop  ; 
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ cat ../common-forth/coredefinitions.fs basisdefinitions.fs ../common/double.fs ../common/fixpoint.fs ../common-forth/insight-16kb.fs ../common-forth/test.fs > included.fs
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ ../common-crosscompiler/icecreammachine-16kb build/nucleus.hex build/iceimage.hex included.fs > build/log.txt
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ ./compile
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ bin2uf2 -o gateware.uf2 j1a.bin
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ scp gateware.uf2 pi5-80:/media/devel/pico-ice/
+
+Double clicked Desktop.sh
+#!/bin/bash
+~/picocom/picocom --baud 115200 --imap crcrlf,lfcrlf /dev/ttyACM1
+  ok.
+test 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 0 1 2 3 4 5 6 7 8 9  ok.
+
+Added the following to test.fs
+: test 200 0 do i depth . loop  ; 
+variable lp 
+variable rp 
+variable sp 
+155 sp ! 
+156 rp ! 
+157 lp !
+: lo-pass-fwd-1 rp @ 2/  ;
+: lo-pass-fwd-2 sp @ lp @ 2/  - sp ! ; 
+lo-pass-fwd-2 lo-pass-fwd-1 
+  ok.
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ cat ../common-forth/coredefinitions.fs basisdefinitions.fs ../common/double.fs ../common/fixpoint.fs ../common-forth/insight-16kb.fs ../common-forth/test.fs > included.fs
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ ../common-crosscompiler/icecreammachine-16kb build/nucleus.hex build/iceimage.hex included.fs > build/log.txt
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ ./compile
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ bin2uf2 -o gateware.uf2 j1a.bin
+
+devel@pi4-30:~/mecrisp-pi/pico-ice $ scp gateware.uf2 pi5-80:/media/devel/pico-ice/
+
+Double clicked Desktop.sh
+#!/bin/bash
+~/picocom/picocom --baud 115200 --imap crcrlf,lfcrlf /dev/ttyACM1
+  ok.
+
+words lo-pass-fwd-2 lo-pass-fwd-1 sp rp lp test new see seec disasm-step memstamp alu. name. disasm-cont disasm-$ insight .s dump f/ ud/mod (ud/mod) divisor shift dividend f* s>f 2constant 2variable f. f.n f# hold< du<= du>= du> du< dmax dmin d<= d>= d> d< 2rot 2nip 2arshift 2rshift 2lshift dshr d2/ d<> d= d0< 2xor 2and 2or nextirq ticks unused cornerstone endcase endof of case s" within pad ." mod / /mod move u.r .r d.r rtype u. . d. ud. (d.) #> #s # .digit sign hold <# hld BUF BUF0 spaces */ */mod fm/mod sm/rem sgn constant variable m* >body buffer: create repeat while else <= >= u<= u>= ( [char] ['] welcome xor! bic! bis! eint? dint eint quit evaluate refill accept number digit \ char ' postpone literal abort rdrop r@ r> >r hex binary decimal unloop j i +loop loop ?do leave do recurse does> until again begin then if ahead ; exit :noname : ] [ immediate foldable sliteral s, compile, c, , allot parse parse-name source 2! 2@ cmove> cmove fill sfind align aligned words link@ here tib init forth >in base state /string type count .x .x2 bl cr space c! c@ emit key key? emit? pause nop um/mod * um* d2* d0= m+ s>d dabs dnegate d- d+ depth io@ io! nip over dup swap u< < = invert not or and xor - + ! 2/ 2* cells abs bounds umax umin max min 2over 2swap +! 2dup ?dup 2drop tuck -rot rot true false drop u> 0> 0< > 0<> <> cell+ 0= rdepth @ 1- negate 1+ arshift rshift lshift execute  ok.
+lp @ . 157  ok.
+rp @ . 156  ok.
+sp @ . 155  ok.
+lo-pass-fwd-2 lo-pass-fwd-1   ok.
+sp @ . 77  ok.

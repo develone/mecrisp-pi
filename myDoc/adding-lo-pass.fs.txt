@@ -22,3 +22,7 @@ cat ../common-forth/coredefinitions.fs basisdefinitions.fs ../common/double.fs .
 ../common-crosscompiler/icecreammachine-16kb build/nucleus.hex build/iceimage.hex included.fs > build/log.txt
 bash: ../common-crosscompiler/icecreammachine-16kb: cannot execute binary file: Exec format error
 Tried on both a Raspberry Pi 5Gb an Windows 11 WSL same result.
+
+sudo apt install gforth
+export PATH=~/ultibo/core/fpc/bin/:$PATH
+tar xvfz Downloads/oss-cad-suite-linux-arm64-20241128.tgz

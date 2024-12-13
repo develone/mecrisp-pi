@@ -722,6 +722,7 @@ Mecrisp-Ice 2.6
   ok.
 cornerstone new  ok.
   ok.
+: test 200 0 do i depth . loop  ;   ok.
 variable lp   ok.
 variable rp   ok.
 variable sp   ok.
