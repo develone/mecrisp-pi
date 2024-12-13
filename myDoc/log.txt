@@ -723,12 +723,28 @@ Mecrisp-Ice 2.6
 cornerstone new  ok.
   ok.
 : test 200 0 do i depth . loop  ;   ok.
-variable lp   ok.
-variable rp   ok.
-variable sp   ok.
-155 sp !   ok.
-156 rp !   ok.
-157 lp !  ok.
-: lo-pass-fwd-1 rp @ 2/  ;  ok.
-: lo-pass-fwd-2 sp @ lp @ 2/  - sp ! ;   ok.
-lo-pass-fwd-2 lo-pass-fwd-1 
+variable lp_a 3 CELLS ALLOT  ok.
+variable rp_a 3 CELLS ALLOT  ok.
+variable sp_a 3 CELLS ALLOT  ok.
+variable offset   ok.
+0 offset !   ok.
+: lo-pass-fwd-1 rp_a offset @ CELLS + @ 2/  ;  ok.
+: lo-pass-fwd-2 sp_a offset @ CEllS + @ lp_a offset @ CELLS + @ 2/  - sp_a offse
+t @ CELLS + ! ;  ok.
+  ok.
+157 lp_a 0 CELLS + !   ok.
+156 rp_a 0 CELLS + !  ok.
+155 sp_a 0 CELLS + !  ok.
+  ok.
+157 lp_a 1 CELLS + !   ok.
+155 rp_a 1 CELLS + !  ok.
+154 sp_a 1 CELLS + !  ok.
+  ok.
+156 lp_a 2 CELLS + !   ok.
+156 rp_a 2 CELLS + !  ok.
+155 sp_a 2 CELLS + !  ok.
+  ok.
+154 lp_a 3 CELLS + !   ok.
+157 rp_a 3 CELLS + !  ok.
+155 sp_a 3 CELLS + !  ok.
+
