@@ -1,4 +1,4 @@
-: test 200 0 do i depth . loop  ; 
+: test 4 0 do i . loop  ; 
 variable lp_a 3 CELLS ALLOT
 variable rp_a 3 CELLS ALLOT
 variable sp_a 3 CELLS ALLOT
@@ -27,4 +27,3 @@ variable offset
 157 rp_a 3 CELLS + !
 155 sp_a 3 CELLS + !
 
- 

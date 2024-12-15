@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cat ../common-forth/coredefinitions.fs basisdefinitions.fs ../common/double.fs ../common/fixpoint.fs ../common-forth/insight-16kb.fs ../common-forth/lo-pass.fs > included.fs
+    
+../common-crosscompiler/icecreammachine-16kb build/nucleus.hex build/iceimage.hex included.fs > build/log.txt
+    
+./compile
+    
+bin2uf2 -o gateware.uf2 j1a.bin
+    
+scp gateware.uf2 pi5-80:/media/devel/pico-ice/
